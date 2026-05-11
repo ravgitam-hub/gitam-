@@ -88,8 +88,7 @@ export function Gallery() {
             </h3>
 
             <p className="text-sm text-muted-foreground">
-              Add files inside the <b>public</b> folder and then add a new item
-              in the <b>galleryItems</b> array.
+              Share the image to <b>rav.gitam@gmail.com</b> with the Image Details
             </p>
           </div>
         </motion.div>
