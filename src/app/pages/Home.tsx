@@ -1,14 +1,27 @@
 import { motion } from "motion/react";
 import { Link } from "react-router";
 import { ArrowRight, Trophy, Users, Zap } from "lucide-react";
-import { BackgroundSlideshow } from "../components/BackgroundSlideshow";
 
 export function Home() {
+  const images = [
+    "/Screenshot 2026-05-09 161737.png",
+    "/WhatsApp Image 2026-05-10 at 11.30.03.jpeg",
+    "/WhatsApp Image 2026-05-09 at 16.30.32.jpeg",
+    "/WhatsApp Image 2026-03-29 at 18.37.04.jpeg",
+  ];
 
   return (
     <div className="min-h-screen">
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <BackgroundSlideshow />
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src={images[0]}
+            alt="RAV Background"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/70"></div>
+        </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
@@ -17,7 +30,9 @@ export function Home() {
             transition={{ duration: 0.8 }}
           >
             <div className="inline-block mb-6 px-6 py-2 rounded-full glass-card neon-glow">
-              <span className="text-primary">GITAM Deemed to be University, Hyderabad</span>
+              <span className="text-primary">
+                GITAM Deemed to be University, Hyderabad
+              </span>
             </div>
 
             <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
@@ -43,12 +58,14 @@ export function Home() {
               >
                 Join RAV <ArrowRight size={20} />
               </Link>
+
               <Link
                 to="/gokart"
                 className="px-8 py-4 rounded-lg glass-card neon-glow text-primary font-semibold hover:scale-105 transition-transform"
               >
                 Explore Projects
               </Link>
+
               <Link
                 to="/sponsorship"
                 className="px-8 py-4 rounded-lg border-2 border-secondary text-secondary font-semibold hover:scale-105 transition-transform"
@@ -65,7 +82,9 @@ export function Home() {
             >
               <div className="flex items-center justify-center gap-3 mb-2">
                 <Trophy className="text-secondary" size={32} />
-                <h3 className="text-2xl font-bold text-secondary">DKDC 2026 - Design Evaluation Winner</h3>
+                <h3 className="text-2xl font-bold text-secondary">
+                  DKDC 2026 - Design Evaluation Winner
+                </h3>
               </div>
               <p className="text-muted-foreground">
                 Won the Design Evaluation round at Design Kart Design Challenge
@@ -114,64 +133,60 @@ export function Home() {
             </motion.div>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl font-bold mb-12 text-center">
-              Our <span className="text-primary">Focus Areas</span>
-            </h2>
+          <h2 className="text-4xl font-bold mb-12 text-center">
+            Our <span className="text-primary">Focus Areas</span>
+          </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                {
-                  title: "Go-Kart Design",
-                  desc: "Formula racing inspired vehicle engineering",
-                  icon: "🏎️",
-                  link: "/gokart",
-                },
-                {
-                  title: "Robotics",
-                  desc: "Autonomous and intelligent robotic systems",
-                  icon: "🤖",
-                  link: "/robotics",
-                },
-                {
-                  title: "Mechanical Design",
-                  desc: "CAD modeling and structural engineering",
-                  icon: "🔧",
-                  link: "/gokart",
-                },
-                {
-                  title: "Fabrication",
-                  desc: "Hands-on manufacturing and assembly",
-                  icon: "🔨",
-                  link: "/gokart",
-                },
-                {
-                  title: "Embedded Systems",
-                  desc: "Microcontroller programming and integration",
-                  icon: "💻",
-                  link: "/robotics",
-                },
-              ].map((area, i) => (
-                <Link key={i} to={area.link}>
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 }}
-                    className="glass-card rounded-xl p-6 border border-primary/20 hover:border-primary/50 transition-all hover:scale-105 cursor-pointer"
-                  >
-                    <div className="text-4xl mb-4">{area.icon}</div>
-                    <h3 className="text-xl font-bold mb-2 text-primary">{area.title}</h3>
-                    <p className="text-muted-foreground">{area.desc}</p>
-                  </motion.div>
-                </Link>
-              ))}
-            </div>
-          </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                title: "Go-Kart Design",
+                desc: "Formula racing inspired vehicle engineering",
+                icon: "🏎️",
+                link: "/gokart",
+              },
+              {
+                title: "Robotics",
+                desc: "Autonomous and intelligent robotic systems",
+                icon: "🤖",
+                link: "/robotics",
+              },
+              {
+                title: "Mechanical Design",
+                desc: "CAD modeling and structural engineering",
+                icon: "🔧",
+                link: "/gokart",
+              },
+              {
+                title: "Fabrication",
+                desc: "Hands-on manufacturing and assembly",
+                icon: "🔨",
+                link: "/gokart",
+              },
+              {
+                title: "Embedded Systems",
+                desc: "Microcontroller programming and integration",
+                icon: "💻",
+                link: "/robotics",
+              },
+            ].map((area, i) => (
+              <Link key={i} to={area.link}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="glass-card rounded-xl p-6 border border-primary/20 hover:border-primary/50 transition-all hover:scale-105 cursor-pointer"
+                >
+                  <div className="text-4xl mb-4">{area.icon}</div>
+                  <h3 className="text-xl font-bold mb-2 text-primary">
+                    {area.title}
+                  </h3>
+                  <p className="text-muted-foreground">{area.desc}</p>
+                </motion.div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
     </div>
