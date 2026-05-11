@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { ArrowRight, Trophy, Users, Zap } from "lucide-react";
 
@@ -10,19 +11,85 @@ export function Home() {
     "/WhatsApp Image 2026-03-29 at 18.37.04.jpeg",
   ];
 
+  const [currentImage, setCurrentImage] = useState(0);
+
+  // Auto slideshow
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) =>
+        prev === images.length - 1 ? 0 : prev + 1
+      );
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Next slide
+  const nextSlide = () => {
+    setCurrentImage((prev) =>
+      prev === images.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  // Previous slide
+  const prevSlide = () => {
+    setCurrentImage((prev) =>
+      prev === 0 ? images.length - 1 : prev - 1
+    );
+  };
+
   return (
     <div className="min-h-screen">
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src={images[0]}
-            alt="RAV Background"
-            className="w-full h-full object-cover"
-          />
+        {/* Background Slideshow */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          {images.map((image, index) => (
+            <img
+              key={index}
+              src={image}
+              alt={`slide-${index}`}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                index === currentImage ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          ))}
+
+          {/* Dark Overlay */}
           <div className="absolute inset-0 bg-black/70"></div>
+
+          {/* Left Button */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-5 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-black/70 text-white px-4 py-2 rounded-full text-2xl"
+          >
+            ❮
+          </button>
+
+          {/* Right Button */}
+          <button
+            onClick={nextSlide}
+            className="absolute right-5 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-black/70 text-white px-4 py-2 rounded-full text-2xl"
+          >
+            ❯
+          </button>
+
+          {/* Dot Buttons */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+            {images.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentImage(index)}
+                className={`w-4 h-4 rounded-full transition-all duration-300 ${
+                  currentImage === index
+                    ? "bg-white scale-125"
+                    : "bg-gray-400 hover:bg-white"
+                }`}
+              ></button>
+            ))}
+          </div>
         </div>
 
+        {/* Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -86,107 +153,12 @@ export function Home() {
                   DKDC 2026 - Design Evaluation Winner
                 </h3>
               </div>
+
               <p className="text-muted-foreground">
                 Won the Design Evaluation round at Design Kart Design Challenge
               </p>
             </motion.div>
           </motion.div>
-        </div>
-      </section>
-
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="glass-card rounded-xl p-8 text-center border border-primary/20 hover:border-primary/50 transition-all hover:neon-glow"
-            >
-              <Users className="text-primary mx-auto mb-4" size={48} />
-              <div className="text-4xl font-bold text-primary mb-2">50+</div>
-              <div className="text-muted-foreground">Active Members</div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="glass-card rounded-xl p-8 text-center border border-secondary/20 hover:border-secondary/50 transition-all hover:neon-glow-red"
-            >
-              <Trophy className="text-secondary mx-auto mb-4" size={48} />
-              <div className="text-4xl font-bold text-secondary mb-2">1</div>
-              <div className="text-muted-foreground">Major Achievement</div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="glass-card rounded-xl p-8 text-center border border-accent/20 hover:border-accent/50 transition-all"
-            >
-              <Zap className="text-accent mx-auto mb-4" size={48} />
-              <div className="text-4xl font-bold text-accent mb-2">10+</div>
-              <div className="text-muted-foreground">Ongoing Projects</div>
-            </motion.div>
-          </div>
-
-          <h2 className="text-4xl font-bold mb-12 text-center">
-            Our <span className="text-primary">Focus Areas</span>
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Go-Kart Design",
-                desc: "Formula racing inspired vehicle engineering",
-                icon: "🏎️",
-                link: "/gokart",
-              },
-              {
-                title: "Robotics",
-                desc: "Autonomous and intelligent robotic systems",
-                icon: "🤖",
-                link: "/robotics",
-              },
-              {
-                title: "Mechanical Design",
-                desc: "CAD modeling and structural engineering",
-                icon: "🔧",
-                link: "/gokart",
-              },
-              {
-                title: "Fabrication",
-                desc: "Hands-on manufacturing and assembly",
-                icon: "🔨",
-                link: "/gokart",
-              },
-              {
-                title: "Embedded Systems",
-                desc: "Microcontroller programming and integration",
-                icon: "💻",
-                link: "/robotics",
-              },
-            ].map((area, i) => (
-              <Link key={i} to={area.link}>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="glass-card rounded-xl p-6 border border-primary/20 hover:border-primary/50 transition-all hover:scale-105 cursor-pointer"
-                >
-                  <div className="text-4xl mb-4">{area.icon}</div>
-                  <h3 className="text-xl font-bold mb-2 text-primary">
-                    {area.title}
-                  </h3>
-                  <p className="text-muted-foreground">{area.desc}</p>
-                </motion.div>
-              </Link>
-            ))}
-          </div>
         </div>
       </section>
     </div>
