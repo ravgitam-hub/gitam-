@@ -48,9 +48,16 @@ const galleryItems: GalleryItem[] = [
 
   {
     id: 5,
-    category: "Events",
+    category: "Go-Kart",
     title: "Team Video",
     image: "/WhatsApp Video 2026-05-09 at 16.30.34.mp4",
+    type: "video",
+  },
+  {
+    id: 6,
+    category: "Go-Kart",
+    title: "Team Video",
+    image: "/WhatsApp Video 2026-05-09 at 16.30.37.mp4",
     type: "video",
   },
 ];
